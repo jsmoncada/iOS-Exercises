@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "RssXMLParser.h"
 #import "NSURLConnection+sendSynchronousRequestWithString.h"
+#import "CustomCell.h"
 
 @interface ViewController ()
 
@@ -87,13 +88,23 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[CustomCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.primaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     }
     
-    [cell.textLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"title"]];
-    [cell.detailTextLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"]];
+    [cell.primaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"title"]];
+    [cell.secondaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"]];
+    NSString *path = [[rssData objectAtIndex:indexPath.row ] objectForKey:@"image"];
+    NSURL *imgurl = [NSURL URLWithString:path];
+    UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithContentsOfURL:imgurl]];
+    if (image == nil) {
+        image = [UIImage imageNamed:@"default.jpg"];
+    }
+    cell.myImageView.image = image;
     return cell;
 }
 #pragma mark - Table view delegate

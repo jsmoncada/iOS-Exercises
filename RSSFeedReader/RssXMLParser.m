@@ -7,11 +7,19 @@
 //
 
 #import "RssXMLParser.h"
+@interface RssXMLParser ()
+
+@property(strong, nonatomic) NSMutableArray *arr;
+@property(strong, nonatomic) NSMutableDictionary *item;
+@property(strong, nonatomic) NSMutableString *itemCont;
+
+@end
 
 @implementation RssXMLParser
-NSMutableArray *arr;
-NSMutableDictionary *item;
-NSMutableString *itemCont;
+
+@synthesize arr;
+@synthesize item;
+@synthesize itemCont;
 
 - (void) parseRssXML:(NSData *)xmldata
 {
@@ -36,21 +44,27 @@ NSMutableString *itemCont;
     }else if([elementName isEqualToString:@"pubDate"])
     {
         [item setObject:itemCont forKey:elementName];
-        [arr addObject:item];
-        item = [[NSMutableDictionary alloc] init];
+ 
+    }else if ([elementName isEqualToString:@"media:content"])
+    {
+        [item setObject:[attributeDict objectForKey:@"url"] forKey:@"image"];
     }
 }
 + (NSMutableArray *)feedItemsWithRSSData:(NSData *)rssData
 {
     RssXMLParser *xmlparser = [[RssXMLParser alloc] init];
     [xmlparser parseRssXML:rssData];
-    return arr;
+    return xmlparser->arr;
 }
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if( [elementName isEqualToString:@"rss"] )
     {
         NSLog(@"xxxxx");
+    }else if([elementName isEqualToString:@"item"])
+    {
+        [arr addObject:item];
+        item = [[NSMutableDictionary alloc] init];
     }
 }
 

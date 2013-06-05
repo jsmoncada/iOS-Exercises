@@ -12,5 +12,5 @@
 {
 
 }
-@property(retain, nonatomic) NSMutableArray *rssData;
+@property(strong, nonatomic) NSMutableArray *rssData;
 @end
