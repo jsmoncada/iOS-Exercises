@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RssXMLParser.h"
+@interface ViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
+{
 
-@interface ViewController : UIViewController
-
+}
+@property(retain, nonatomic) NSMutableArray *rssData;
 @end
