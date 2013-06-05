@@ -88,10 +88,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B0BEC7CA175EE3A3004BFC5B /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		B0E24EA0175CA3F4003550E4 = {
 			isa = PBXGroup;
 			children = (
 				B0B48570175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.h */,
+				B0BEC7CA175EE3A3004BFC5B /* New Group */,
 				B0B48571175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.m */,
 				B0E24EB2175CA3F4003550E4 /* RSSFeedReader */,
 				B0E24ED6175CA3F4003550E4 /* RSSFeedReaderTests */,
