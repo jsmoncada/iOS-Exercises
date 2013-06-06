@@ -14,5 +14,4 @@
 @property(nonatomic,retain)UILabel *secondaryLabel;
 @property(nonatomic,retain)UIImageView *myImageView;
 
--(CGFloat) heightOfPLabel;
 @end

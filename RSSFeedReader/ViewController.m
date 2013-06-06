@@ -93,11 +93,22 @@
         cell = [[CustomCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.primaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        [cell.primaryLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [cell.primaryLabel setNumberOfLines:0];
     }
     
     [cell.primaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"title"]];
     [cell.secondaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"]];
+    
+    CGSize constraint = CGSizeMake(210, 20000.0f);
+    
+    CGSize size = [cell.primaryLabel.text sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGFloat height = MAX(size.height, 44.0f);
+    
+    [cell.primaryLabel setFrame:CGRectMake(cell.contentView.bounds.origin.x + 80, 5,210,height)];
+    [cell.secondaryLabel setFrame:CGRectMake(cell.contentView.bounds.origin.x + 80, CGRectGetMaxY(cell.primaryLabel.frame) + 5,200,25)];
+    [cell.myImageView setFrame:CGRectMake(cell.contentView.bounds.origin.x + 5, 10,70,height+15)];
     NSString *path = [[rssData objectAtIndex:indexPath.row ] objectForKey:@"image"];
     NSURL *imgurl = [NSURL URLWithString:path];
     UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithContentsOfURL:imgurl]];
@@ -105,7 +116,20 @@
         image = [UIImage imageNamed:@"default.jpg"];
     }
     cell.myImageView.image = image;
+    
     return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    NSString *txt = [[rssData objectAtIndex:[indexPath row]] objectForKey:@"title"];
+    
+    CGSize constraint = CGSizeMake(210, 20000.0f);
+    
+    CGSize size = [txt sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGFloat height = MAX(size.height, 44.0f);
+    
+    return height + 35;
 }
 #pragma mark - Table view delegate
 
@@ -119,5 +143,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
 
 @end
