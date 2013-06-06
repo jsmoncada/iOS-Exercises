@@ -64,8 +64,9 @@
     dLabel.textAlignment = NSTextAlignmentCenter;
     [dLabel setText:[articleinfo objectForKey:@"pubDate"]];
     
+    NSString *desc = [self stringByStrippingHTML:[articleinfo objectForKey:@"description"]];
     constraint = CGSizeMake(290, 20000.0f);
-    size = [[articleinfo objectForKey:@"description"] sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    size = [desc sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     CGFloat desheight = MAX(size.height, 44.0f);
     
     UILabel *desLabel = [[UILabel alloc] init];
@@ -73,14 +74,20 @@
     desLabel.textAlignment = NSTextAlignmentCenter;
     [desLabel setNumberOfLines:0];
     [desLabel setFrame:CGRectMake(15, aheight + 35, 290, desheight)];
-    [desLabel setText:[articleinfo objectForKey:@"description"]];
+    [desLabel setText:desc];
         
     [self.view addSubview:aLabel];
     [self.view addSubview:dLabel];
     [self.view addSubview:desLabel];
 
 }
-
+-(NSString *) stringByStrippingHTML:(NSString*)input {
+    NSRange r;
+    //NSString *s = [self copy];
+    while ((r = [input rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+        input = [input stringByReplacingCharactersInRange:r withString:@""];
+    return input;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -75,15 +75,19 @@
     UIBarButtonItem *addFeed = [[UIBarButtonItem alloc] initWithTitle:@"Add"
                                                                     style:UIBarButtonItemStyleDone target:self action:@selector(addFeedInput)];
     self.navigationItem.rightBarButtonItem = addFeed;
-    /*
+    
     item = [[NSMutableDictionary alloc] init];
     [item setObject:@"Yahoo Entertainment" forKey:@"sitename"];
     [item setObject:@"http://news.yahoo.com/rss/entertainment" forKey:@"siteURL"];
     [feedList addObject:item];
     item = [[NSMutableDictionary alloc] init];
+    [item setObject:@"Yahoo Sports" forKey:@"sitename"];
+    [item setObject:@"http://news.yahoo.com/rss/sports" forKey:@"siteURL"];
+    [feedList addObject:item];
+    item = [[NSMutableDictionary alloc] init];
     [item setObject:@"National Geographic" forKey:@"sitename"];
     [item setObject:@"http://news.nationalgeographic.com/index.rss" forKey:@"siteURL"];
-    [feedList addObject:item];*/
+    [feedList addObject:item];
     [self.tableView reloadData];
 }
 

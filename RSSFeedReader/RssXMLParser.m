@@ -51,6 +51,9 @@
     }else if([elementName isEqualToString:@"link"])
     {
         [item setObject:itemCont forKey:elementName];
+    }else
+    {
+    
     }
 }
 + (NSMutableArray *)feedItemsWithRSSData:(NSData *)rssData
