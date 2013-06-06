@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
-#import "ViewController.h"
+#import "FeedListViewController.h"
 
 @implementation AppDelegate
 
@@ -23,9 +22,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds] ];
     // Override point for customization after application launch.
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] ;
+    //self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] ;
+    //self.viewController = [[ViewController alloc] initWithNibName:@"FeedListViewController" bundle:nil] ;
     
-    UINavigationController *navcon = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    UINavigationController *navcon = [[UINavigationController alloc] initWithRootViewController:[[FeedListViewController alloc] initWithNibName:@"FeedListViewController" bundle:nil]];
     
     self.window.rootViewController = navcon;
     [self.window makeKeyAndVisible];

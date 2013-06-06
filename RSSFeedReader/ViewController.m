@@ -17,7 +17,8 @@
 
 @implementation ViewController
 @synthesize rssData;
-
+@synthesize rssURL;
+@synthesize rssName;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super init];
@@ -26,16 +27,6 @@
     }
     return self;
 }
-/*
--(NSData *)getRSSContent:(NSString *)url
-{
-    NSURL *urlRef = [NSURL URLWithString:url];
-    NSURLRequest *rssRequest = [NSURLRequest requestWithURL:urlRef];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:rssRequest returningResponse:&response error:&error];
-    return data;
-}*/
 
 - (void)loadView
 {
@@ -45,7 +36,7 @@
     tableView.dataSource = self;
     [tableView reloadData];
     
-    self.title = @"RSS Feed";
+    self.title = rssName;
     self.view = tableView;
     
 }
@@ -54,9 +45,10 @@
 {
     [super viewDidLoad];
     
-    //NSData *theFeed = [self getRSSContent:@"http://news.yahoo.com/rss/entertainment"];
     NSError *err = nil;
-    NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:@"http://news.yahoo.com/rss/entertainment" error:err];
+    //rssURL = @"http://news.yahoo.com/rss/entertainment";
+    //rssURL = @"http://news.nationalgeographic.com/index.rss";
+    NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
     rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
     [self.tableView reloadData];
     

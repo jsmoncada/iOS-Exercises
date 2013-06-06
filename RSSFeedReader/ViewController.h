@@ -13,4 +13,6 @@
 
 }
 @property(strong, nonatomic) NSMutableArray *rssData;
+@property(strong, nonatomic) NSString *rssURL;
+@property(strong, nonatomic) NSString *rssName;
 @end
