@@ -83,7 +83,6 @@
 }
 -(NSString *) stringByStrippingHTML:(NSString*)input {
     NSRange r;
-    //NSString *s = [self copy];
     while ((r = [input rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
         input = [input stringByReplacingCharactersInRange:r withString:@""];
     return input;
