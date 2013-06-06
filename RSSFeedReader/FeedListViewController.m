@@ -37,6 +37,31 @@
     self.view = tableView;
     
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    //NSLog(@"1 %@", [alertView textFieldAtIndex:0].text);
+    int bi = (int)buttonIndex;
+    //NSLog(@"%d",(int)buttonIndex);
+    if(bi == 1)
+    {
+        item = [[NSMutableDictionary alloc] init];
+        [item setObject:[alertView textFieldAtIndex:0].text forKey:@"sitename"];
+        [item setObject:[alertView textFieldAtIndex:1].text forKey:@"siteURL"];
+        [feedList addObject:item];
+        [self.tableView reloadData];
+    }
+}
+-(void) addFeedInput
+{
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Your_Title" message:@"Your_message" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+    [av setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
+    
+    // Alert style customization
+    [[av textFieldAtIndex:1] setSecureTextEntry:NO];
+    [[av textFieldAtIndex:0] setPlaceholder:@"Feed Title"];
+    [[av textFieldAtIndex:1] setPlaceholder:@"URL"];
+    [av show];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,6 +72,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *addFeed = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(addFeedInput)];
+    self.navigationItem.rightBarButtonItem = addFeed;
+    /*
     item = [[NSMutableDictionary alloc] init];
     [item setObject:@"Yahoo Entertainment" forKey:@"sitename"];
     [item setObject:@"http://news.yahoo.com/rss/entertainment" forKey:@"siteURL"];
@@ -54,7 +83,7 @@
     item = [[NSMutableDictionary alloc] init];
     [item setObject:@"National Geographic" forKey:@"sitename"];
     [item setObject:@"http://news.nationalgeographic.com/index.rss" forKey:@"siteURL"];
-    [feedList addObject:item];
+    [feedList addObject:item];*/
     [self.tableView reloadData];
 }
 

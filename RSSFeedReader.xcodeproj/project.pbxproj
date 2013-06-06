@@ -11,6 +11,7 @@
 		B0BEC7CD175F0DDC004BFC5B /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */; };
 		B0BEC7D3175F212A004BFC5B /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0BEC7D2175F212A004BFC5B /* default.jpg */; };
 		B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238BD1760280D0087C636 /* FeedListViewController.m */; };
+		B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238C017604BB40087C636 /* ArticleViewController.m */; };
 		B0E24EAD175CA3F4003550E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EAC175CA3F4003550E4 /* UIKit.framework */; };
 		B0E24EAF175CA3F4003550E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EAE175CA3F4003550E4 /* Foundation.framework */; };
 		B0E24EB1175CA3F4003550E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EB0175CA3F4003550E4 /* CoreGraphics.framework */; };
@@ -47,6 +48,8 @@
 		B0BEC7D2175F212A004BFC5B /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		B0C238BC1760280D0087C636 /* FeedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedListViewController.h; sourceTree = "<group>"; };
 		B0C238BD1760280D0087C636 /* FeedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedListViewController.m; sourceTree = "<group>"; };
+		B0C238BF17604BB40087C636 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		B0C238C017604BB40087C636 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		B0E24EA9175CA3F4003550E4 /* RSSFeedReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSFeedReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E24EAC175CA3F4003550E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B0E24EAE175CA3F4003550E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,8 @@
 				B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */,
 				B0E24EBB175CA3F4003550E4 /* AppDelegate.h */,
 				B0E24EBC175CA3F4003550E4 /* AppDelegate.m */,
+				B0C238BF17604BB40087C636 /* ArticleViewController.h */,
+				B0C238C017604BB40087C636 /* ArticleViewController.m */,
 				B0C238BC1760280D0087C636 /* FeedListViewController.h */,
 				B0C238BD1760280D0087C636 /* FeedListViewController.m */,
 				B0E24EC4175CA3F4003550E4 /* ViewController.h */,
@@ -297,6 +302,7 @@
 				B0B48572175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.m in Sources */,
 				B0BEC7CD175F0DDC004BFC5B /* CustomCell.m in Sources */,
 				B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */,
+				B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeedListViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
+@interface FeedListViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property(strong, nonatomic) NSMutableArray *feedList;
 @property (strong,nonatomic) NSMutableDictionary *item;

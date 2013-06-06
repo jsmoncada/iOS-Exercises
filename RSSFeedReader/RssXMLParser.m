@@ -48,6 +48,9 @@
     }else if ([elementName isEqualToString:@"media:content"])
     {
         [item setObject:[attributeDict objectForKey:@"url"] forKey:@"image"];
+    }else if([elementName isEqualToString:@"link"])
+    {
+        [item setObject:itemCont forKey:elementName];
     }
 }
 + (NSMutableArray *)feedItemsWithRSSData:(NSData *)rssData

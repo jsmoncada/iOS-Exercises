@@ -10,6 +10,7 @@
 #import "RssXMLParser.h"
 #import "NSURLConnection+sendSynchronousRequestWithString.h"
 #import "CustomCell.h"
+#import "ArticleViewController.h"
 
 @interface ViewController ()
 
@@ -128,12 +129,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    
+     ArticleViewController *articleView = [[ArticleViewController alloc] initWithNibName:@"ArticleViewController" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    articleView.pagetitle = rssName;
+    articleView.articleinfo = [rssData objectAtIndex:indexPath.row ];
+     [self.navigationController pushViewController:articleView animated:YES];
+    
 }
 
 
