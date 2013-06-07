@@ -12,4 +12,5 @@
 
 @property(strong, nonatomic) NSMutableArray *feedList;
 @property (strong,nonatomic) NSMutableDictionary *item;
+@property (strong,nonatomic) NSMutableArray *rssData;
 @end

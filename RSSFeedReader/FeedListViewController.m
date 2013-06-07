@@ -16,7 +16,7 @@
 @implementation FeedListViewController
 @synthesize feedList;
 @synthesize item;
-
+@synthesize rssData;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

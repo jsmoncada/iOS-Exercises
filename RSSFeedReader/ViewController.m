@@ -46,12 +46,31 @@
 {
     [super viewDidLoad];
     
-    NSError *err = nil;
     //rssURL = @"http://news.yahoo.com/rss/entertainment";
     //rssURL = @"http://news.nationalgeographic.com/index.rss";
-    NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
-    rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
-    [self.tableView reloadData];
+    NSError *err = nil;
+    //NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
+    //rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    spinner.center = CGPointMake(self.view.center.x,self.view.center.y-50);
+    spinner.hidesWhenStopped = YES;
+    spinner.color = [UIColor blackColor];
+    [self.view addSubview:spinner];
+    [spinner startAnimating];
+    
+    dispatch_async(queue, ^{
+        NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
+        rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [spinner stopAnimating];
+            [self.tableView reloadData];
+            [spinner removeFromSuperview];
+        });
+    });
+
+    //[self.tableView reloadData];
     
 }
 
@@ -104,11 +123,25 @@
     [cell.myImageView setFrame:CGRectMake(cell.contentView.bounds.origin.x + 5, 10,70,height+15)];
     NSString *path = [[rssData objectAtIndex:indexPath.row ] objectForKey:@"image"];
     NSURL *imgurl = [NSURL URLWithString:path];
+    /*
     UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithContentsOfURL:imgurl]];
     if (image == nil) {
         image = [UIImage imageNamed:@"default.jpg"];
     }
-    cell.myImageView.image = image;
+    cell.myImageView.image = image;*/
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    
+    dispatch_async(queue, ^{
+        UIImage *image = [UIImage imageWithData:[[NSData alloc] initWithContentsOfURL:imgurl]];
+        if (image == nil) {
+            image = [UIImage imageNamed:@"default.jpg"];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            cell.myImageView.image = image;
+        });
+    });
     
     return cell;
 }
