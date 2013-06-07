@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B0B48572175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B48571175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.m */; };
+		B0BD0D131761ADF800C903E8 /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BD0D121761ADF800C903E8 /* ModalViewController.m */; };
 		B0BEC7CD175F0DDC004BFC5B /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */; };
 		B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238BD1760280D0087C636 /* FeedListViewController.m */; };
 		B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238C017604BB40087C636 /* ArticleViewController.m */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		B0B48570175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+sendSynchronousRequestWithString.h"; sourceTree = "<group>"; };
 		B0B48571175DB5F600EE3D60 /* NSURLConnection+sendSynchronousRequestWithString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+sendSynchronousRequestWithString.m"; sourceTree = "<group>"; };
+		B0BD0D111761ADF800C903E8 /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
+		B0BD0D121761ADF800C903E8 /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
 		B0BEC7CB175F0DDC004BFC5B /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		B0C238BC1760280D0087C636 /* FeedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedListViewController.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */,
 				B0E24EBB175CA3F4003550E4 /* AppDelegate.h */,
 				B0E24EBC175CA3F4003550E4 /* AppDelegate.m */,
+				B0BD0D111761ADF800C903E8 /* ModalViewController.h */,
+				B0BD0D121761ADF800C903E8 /* ModalViewController.m */,
 				B0C238BF17604BB40087C636 /* ArticleViewController.h */,
 				B0C238C017604BB40087C636 /* ArticleViewController.m */,
 				B0C238BC1760280D0087C636 /* FeedListViewController.h */,
@@ -303,6 +308,7 @@
 				B0BEC7CD175F0DDC004BFC5B /* CustomCell.m in Sources */,
 				B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */,
 				B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */,
+				B0BD0D131761ADF800C903E8 /* ModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

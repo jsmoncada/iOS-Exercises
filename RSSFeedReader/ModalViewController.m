@@ -1,76 +1,39 @@
 //
-//  FeedListViewController.m
+//  ModalViewController.m
 //  RSSFeedReader
 //
-//  Created by Julia Moncada on 6/6/13.
+//  Created by Julia Moncada on 6/7/13.
 //  Copyright (c) 2013 Julia Moncada. All rights reserved.
 //
 
-#import "FeedListViewController.h"
-#import "ViewController.h"
 #import "ModalViewController.h"
 
-
-@interface FeedListViewController ()
+@interface ModalViewController ()
 
 @end
 
-@implementation FeedListViewController
+@implementation ModalViewController
 @synthesize feedList;
-@synthesize item;
-@synthesize outList;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
 - (void)loadView
 {
-    UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStyleGrouped];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView reloadData];
-    feedList = [NSMutableArray array];
-    outList = [NSMutableArray array];
-    self.title = @"Feed List";
+    self.title = @"Subscriptions";
     self.view = tableView;
     
-    item = [[NSMutableDictionary alloc] init];
-    [item setObject:@"Yahoo Entertainment" forKey:@"sitename"];
-    [item setObject:@"http://news.yahoo.com/rss/entertainment" forKey:@"siteURL"];
-    [item setObject:@"ON" forKey:@"isOn"];
-    [feedList addObject:item];
-    item = [[NSMutableDictionary alloc] init];
-    [item setObject:@"Yahoo Sports" forKey:@"sitename"];
-    [item setObject:@"http://news.yahoo.com/rss/sports" forKey:@"siteURL"];
-    [item setObject:@"ON" forKey:@"isOn"];
-    [feedList addObject:item];
-    item = [[NSMutableDictionary alloc] init];
-    [item setObject:@"National Geographic" forKey:@"sitename"];
-    [item setObject:@"http://news.nationalgeographic.com/index.rss" forKey:@"siteURL"];
-    [item setObject:@"ON" forKey:@"isOn"];
-    [feedList addObject:item];
-    
-}
-
--(void) subFeed
-{
-    ModalViewController *mv = [[ModalViewController alloc]
-                                            initWithNibName:@"ModalViewController"
-                                            bundle:nil];
-    [mv setFeedList:feedList];
-    
-    // Create a Navigation controller
-    UINavigationController *navController = [[UINavigationController alloc]
-                                             initWithRootViewController:mv];
-    
-    // show the navigation controller modally
-    [self presentViewController:navController animated:YES completion:nil];
-
 }
 - (void)viewDidLoad
 {
@@ -81,21 +44,23 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                  style:UIBarButtonItemStyleDone target:self action:@selector(isDone)];
+    self.navigationItem.rightBarButtonItem = done;
     
-    UIBarButtonItem *subscribe = [[UIBarButtonItem alloc] initWithTitle:@"Subscribe"
-                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(subFeed)];
-    self.navigationItem.rightBarButtonItem = subscribe;
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                             style:UIBarButtonItemStylePlain target:self action:@selector(cancelNow)];
+    self.navigationItem.leftBarButtonItem = cancel;
     
-    int ctr = 0;
-    while (ctr < [feedList count]){
-        item = [feedList objectAtIndex:ctr];
-        NSString *text = [item objectForKey:@"isOn"];
-        if([text isEqualToString:@"ON"]){
-            [outList addObject:item];
-        }
-        ctr++;
-    }
     [self.tableView reloadData];
+}
+-(void)isDone
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+-(void) cancelNow
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +80,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [outList count];
+    return [feedList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,11 +89,26 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
-    if (cell == nil){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        [cell.textLabel setText:[[outList objectAtIndex:indexPath.row] objectForKey:@"sitename"]];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        [cell.textLabel setText:[[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"]];
+        
+        //add a switch
+        
+        UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+        
+        if([[[feedList objectAtIndex:indexPath.row] objectForKey:@"isOn"] isEqualToString:@"ON"])
+        {
+            [switchview setOn:YES];
+        }else
+        {
+            [switchview setOn: NO];
+        }
+        cell.accessoryView = switchview;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+        
     return cell;
 }
 
@@ -176,14 +156,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    
-     ViewController *newViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    newViewController.rssName = [[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"];
-    newViewController.rssURL = [[feedList objectAtIndex:indexPath.row] objectForKey:@"siteURL"];
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:newViewController animated:YES];
-     
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UISwitch *switchView = (UISwitch *)cell.accessoryView;
+    
+    if ([switchView isOn]) {
+        [switchView setOn:NO animated:YES];
+        [[feedList objectAtIndex:indexPath.row] setObject:@"ON" forKey:@"isOn"];
+    } else {
+        [switchView setOn:YES animated:YES];
+        [[feedList objectAtIndex:indexPath.row] setObject:@"OFF" forKey:@"isOn"];
+    }
 }
 
 @end

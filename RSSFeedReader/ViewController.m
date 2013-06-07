@@ -20,6 +20,7 @@
 @synthesize rssData;
 @synthesize rssURL;
 @synthesize rssName;
+@synthesize spinner;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super init];
@@ -48,30 +49,48 @@
     
     //rssURL = @"http://news.yahoo.com/rss/entertainment";
     //rssURL = @"http://news.nationalgeographic.com/index.rss";
-    NSError *err = nil;
     //NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
     //rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshTable)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinner.center = CGPointMake(self.view.center.x,self.view.center.y-50);
     spinner.hidesWhenStopped = YES;
     spinner.color = [UIColor blackColor];
     [self.view addSubview:spinner];
     [spinner startAnimating];
     
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
-        NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:err];
+        NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:nil];
         rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [spinner stopAnimating];
             [self.tableView reloadData];
-            [spinner removeFromSuperview];
         });
     });
 
     //[self.tableView reloadData];
     
+}
+
+- (void)refreshTable
+{
+    [spinner startAnimating];
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:nil];
+        rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [spinner stopAnimating];
+            [self.tableView reloadData];
+            [spinner removeFromSuperview];
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning
