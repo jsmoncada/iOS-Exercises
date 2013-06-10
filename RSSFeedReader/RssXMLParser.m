@@ -72,8 +72,6 @@
         NSString *string = itemCont;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss Z"];
-        //NSLocale *enLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
-        //[formatter setLocale:enLocale];
         NSDate *date = [formatter dateFromString:string];
         [item setObject:date forKey:elementName];
         

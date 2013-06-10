@@ -13,6 +13,7 @@
 		B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238BD1760280D0087C636 /* FeedListViewController.m */; };
 		B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C238C017604BB40087C636 /* ArticleViewController.m */; };
 		B0C238C317606F180087C636 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0C238C217606F180087C636 /* default.jpg */; };
+		B0C8388C17659AC000A15C8E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8388B17659AC000A15C8E /* MBProgressHUD.m */; };
 		B0E24EAD175CA3F4003550E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EAC175CA3F4003550E4 /* UIKit.framework */; };
 		B0E24EAF175CA3F4003550E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EAE175CA3F4003550E4 /* Foundation.framework */; };
 		B0E24EB1175CA3F4003550E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E24EB0175CA3F4003550E4 /* CoreGraphics.framework */; };
@@ -53,6 +54,8 @@
 		B0C238BF17604BB40087C636 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		B0C238C017604BB40087C636 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		B0C238C217606F180087C636 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
+		B0C8388A17659AC000A15C8E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B0C8388B17659AC000A15C8E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B0E24EA9175CA3F4003550E4 /* RSSFeedReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSFeedReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E24EAC175CA3F4003550E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B0E24EAE175CA3F4003550E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				B0BEC7CC175F0DDC004BFC5B /* CustomCell.m */,
 				B0E24EBB175CA3F4003550E4 /* AppDelegate.h */,
 				B0E24EBC175CA3F4003550E4 /* AppDelegate.m */,
+				B0C8388A17659AC000A15C8E /* MBProgressHUD.h */,
+				B0C8388B17659AC000A15C8E /* MBProgressHUD.m */,
 				B0BD0D111761ADF800C903E8 /* ModalViewController.h */,
 				B0BD0D121761ADF800C903E8 /* ModalViewController.m */,
 				B0C238BF17604BB40087C636 /* ArticleViewController.h */,
@@ -309,6 +314,7 @@
 				B0C238BE1760280D0087C636 /* FeedListViewController.m in Sources */,
 				B0C238C117604BB40087C636 /* ArticleViewController.m in Sources */,
 				B0BD0D131761ADF800C903E8 /* ModalViewController.m in Sources */,
+				B0C8388C17659AC000A15C8E /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

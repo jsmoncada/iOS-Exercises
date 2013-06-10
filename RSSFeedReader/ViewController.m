@@ -10,6 +10,7 @@
 #import "RssXMLParser.h"
 #import "NSURLConnection+sendSynchronousRequestWithString.h"
 #import "CustomCell.h"
+#import "MBProgressHUD.h"
 #import "ArticleViewController.h"
 
 @interface ViewController ()
@@ -54,13 +55,14 @@
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshTable)];
     self.navigationItem.rightBarButtonItem = refreshButton;
-    
+   /*
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinner.center = CGPointMake(self.view.center.x,self.view.center.y-50);
     spinner.hidesWhenStopped = YES;
     spinner.color = [UIColor blackColor];
     [self.view addSubview:spinner];
-    [spinner startAnimating];
+    [spinner startAnimating];*/
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -68,7 +70,8 @@
         rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [spinner stopAnimating];
+            //[spinner stopAnimating];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
         });
     });
@@ -79,16 +82,17 @@
 
 - (void)refreshTable
 {
-    [spinner startAnimating];
+    //[spinner startAnimating];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         NSData *theFeed = [NSURLConnection sendSynchronousRequestWithString:rssURL error:nil];
         rssData = [RssXMLParser feedItemsWithRSSData:theFeed];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [spinner stopAnimating];
+            //[spinner stopAnimating];
             [self.tableView reloadData];
-            [spinner removeFromSuperview];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //[spinner removeFromSuperview];
         });
     });
 }
@@ -131,8 +135,6 @@
     [cell.primaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"title"]];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
-   // NSLocale *enLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
-    //[formatter setLocale:enLocale];
     
     NSDate *date = [[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"];
     NSString *dateString = [formatter stringFromDate:date];
