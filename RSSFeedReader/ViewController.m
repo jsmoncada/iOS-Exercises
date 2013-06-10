@@ -129,7 +129,14 @@
     }
     
     [cell.primaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"title"]];
-    [cell.secondaryLabel setText:[[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
+   // NSLocale *enLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
+    //[formatter setLocale:enLocale];
+    
+    NSDate *date = [[rssData objectAtIndex:indexPath.row ] objectForKey:@"pubDate"];
+    NSString *dateString = [formatter stringFromDate:date];
+    [cell.secondaryLabel setText:dateString];
     
     CGSize constraint = CGSizeMake(210, 20000.0f);
     

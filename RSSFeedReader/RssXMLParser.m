@@ -27,11 +27,11 @@
     [xmlParser setDelegate:self];
     [xmlParser setShouldResolveExternalEntities:NO];
     item = [[NSMutableDictionary alloc] init];
+    itemCont = [[NSMutableString alloc] init];
     arr = [NSMutableArray array];
     [xmlParser parse];
 }
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-    itemCont = [[NSMutableString alloc] init];
     if([elementName isEqualToString:@"title"])
     {
         [item setObject:itemCont forKey:elementName];
@@ -41,10 +41,6 @@
     }else if([elementName isEqualToString:@"description"])
     {
         [item setObject:itemCont forKey:elementName];
-    }else if([elementName isEqualToString:@"pubDate"])
-    {
-        [item setObject:itemCont forKey:elementName];
- 
     }else if ([elementName isEqualToString:@"media:content"])
     {
         [item setObject:[attributeDict objectForKey:@"url"] forKey:@"image"];
@@ -71,7 +67,18 @@
     {
         [arr addObject:item];
         item = [[NSMutableDictionary alloc] init];
+    }else if([elementName isEqualToString:@"pubDate"])
+    {
+        NSString *string = itemCont;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss Z"];
+        //NSLocale *enLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
+        //[formatter setLocale:enLocale];
+        NSDate *date = [formatter dateFromString:string];
+        [item setObject:date forKey:elementName];
+        
     }
+    itemCont = [[NSMutableString alloc] init];
 }
 
 - (void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string

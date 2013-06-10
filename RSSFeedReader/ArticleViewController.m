@@ -62,7 +62,12 @@
     UILabel *dLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, aheight + 15, 260, 10)];
     dLabel.font = [UIFont systemFontOfSize:10];
     dLabel.textAlignment = NSTextAlignmentCenter;
-    [dLabel setText:[articleinfo objectForKey:@"pubDate"]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
+    NSDate *date = [articleinfo objectForKey:@"pubDate"];
+    NSString *dateString = [formatter stringFromDate:date];
+
+    [dLabel setText:dateString];
     
     NSString *desc = [self stringByStrippingHTML:[articleinfo objectForKey:@"description"]];
     constraint = CGSizeMake(290, 20000.0f);

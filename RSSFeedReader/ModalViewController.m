@@ -173,11 +173,10 @@
     if ([switchView isOn]) {
         [switchView setOn:NO animated:YES];
         [[feedList objectAtIndex:indexPath.row] setObject:@"OFF" forKey:@"isOn"];
-        NSLog(@"%@ - %@",[[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"],[[feedList objectAtIndex:indexPath.row] objectForKey:@"isOn"]);
+        
     } else {
         [switchView setOn:YES animated:YES];
         [[feedList objectAtIndex:indexPath.row] setObject:@"ON" forKey:@"isOn"];
-        NSLog(@"%@ - %@",[[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"],[[feedList objectAtIndex:indexPath.row] objectForKey:@"isOn"]);
     }
 }
 
