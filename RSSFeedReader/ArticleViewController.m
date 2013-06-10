@@ -7,6 +7,7 @@
 //
 
 #import "ArticleViewController.h"
+#import "WebViewController.h"
 
 @interface ArticleViewController ()
 
@@ -36,7 +37,12 @@
 {
     NSString *path = [articleinfo objectForKey:@"link"];
     NSURL *url = [NSURL URLWithString:path];
-    [[UIApplication sharedApplication] openURL:url];
+    //[[UIApplication sharedApplication] openURL:url];
+    WebViewController *newViewController = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+    newViewController.path = url;
+    // ...
+    // Pass the selected object to the new view controller.
+    [self.navigationController pushViewController:newViewController animated:YES];
 }
 - (void)viewDidLoad
 {
