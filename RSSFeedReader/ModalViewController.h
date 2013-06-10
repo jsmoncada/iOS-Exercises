@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModalViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@protocol SecondDelegate <NSObject>
+-(void) secondViewControllerDismissed:(NSMutableArray*)returnArray;
+@end
 
+@interface ModalViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+{
+    __unsafe_unretained id myDelegate;
+}
+
+@property (nonatomic, assign) id<SecondDelegate>    myDelegate;
 @property(strong, nonatomic) NSMutableArray *feedList;
 
 @end

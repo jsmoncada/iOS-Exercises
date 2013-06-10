@@ -14,7 +14,7 @@
 
 @implementation ModalViewController
 @synthesize feedList;
-
+@synthesize myDelegate;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -56,6 +56,10 @@
 }
 -(void)isDone
 {
+    if([self.myDelegate respondsToSelector:@selector(secondViewControllerDismissed:)])
+    {
+        [self.myDelegate secondViewControllerDismissed:feedList];
+    }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 -(void) cancelNow
@@ -168,10 +172,12 @@
     
     if ([switchView isOn]) {
         [switchView setOn:NO animated:YES];
-        [[feedList objectAtIndex:indexPath.row] setObject:@"ON" forKey:@"isOn"];
+        [[feedList objectAtIndex:indexPath.row] setObject:@"OFF" forKey:@"isOn"];
+        NSLog(@"%@ - %@",[[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"],[[feedList objectAtIndex:indexPath.row] objectForKey:@"isOn"]);
     } else {
         [switchView setOn:YES animated:YES];
-        [[feedList objectAtIndex:indexPath.row] setObject:@"OFF" forKey:@"isOn"];
+        [[feedList objectAtIndex:indexPath.row] setObject:@"ON" forKey:@"isOn"];
+        NSLog(@"%@ - %@",[[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"],[[feedList objectAtIndex:indexPath.row] objectForKey:@"isOn"]);
     }
 }
 

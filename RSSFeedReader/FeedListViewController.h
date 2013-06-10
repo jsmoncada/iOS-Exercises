@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ModalViewController.h"
 
-@interface FeedListViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface FeedListViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,SecondDelegate>
 
 @property(strong, nonatomic) NSMutableArray *feedList;
 @property (strong,nonatomic) NSMutableDictionary *item;

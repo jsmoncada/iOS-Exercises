@@ -38,7 +38,6 @@
     outList = [NSMutableArray array];
     self.title = @"Feed List";
     self.view = tableView;
-    
     item = [[NSMutableDictionary alloc] init];
     [item setObject:@"Yahoo Entertainment" forKey:@"sitename"];
     [item setObject:@"http://news.yahoo.com/rss/entertainment" forKey:@"siteURL"];
@@ -56,14 +55,29 @@
     [feedList addObject:item];
     
 }
-
+- (void)secondViewControllerDismissed:(NSMutableArray*)returnArray
+{
+    feedList = [NSMutableArray array];
+    feedList = returnArray;
+    outList = [NSMutableArray array];
+    int ctr = 0;
+    while (ctr < [feedList count]){
+        item = [feedList objectAtIndex:ctr];
+        NSString *text = [item objectForKey:@"isOn"];
+        if([text isEqualToString:@"ON"]){
+            [outList addObject:item];
+        }
+        ctr++;
+    }
+    [self.tableView reloadData];
+}
 -(void) subFeed
 {
     ModalViewController *mv = [[ModalViewController alloc]
                                             initWithNibName:@"ModalViewController"
                                             bundle:nil];
     [mv setFeedList:feedList];
-    
+    mv.myDelegate = self;
     // Create a Navigation controller
     UINavigationController *navController = [[UINavigationController alloc]
                                              initWithRootViewController:mv];
@@ -89,12 +103,14 @@
     int ctr = 0;
     while (ctr < [feedList count]){
         item = [feedList objectAtIndex:ctr];
+        
         NSString *text = [item objectForKey:@"isOn"];
         if([text isEqualToString:@"ON"]){
             [outList addObject:item];
         }
         ctr++;
     }
+
     [self.tableView reloadData];
 }
 
@@ -122,13 +138,13 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     // Configure the cell...
     if (cell == nil){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         [cell.textLabel setText:[[outList objectAtIndex:indexPath.row] objectForKey:@"sitename"]];
     }
-    
+
+    [cell.textLabel setText:[[outList objectAtIndex:indexPath.row] objectForKey:@"sitename"]];
     return cell;
 }
 
@@ -178,8 +194,8 @@
     // Navigation logic may go here. Create and push another view controller.
     
      ViewController *newViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    newViewController.rssName = [[feedList objectAtIndex:indexPath.row] objectForKey:@"sitename"];
-    newViewController.rssURL = [[feedList objectAtIndex:indexPath.row] objectForKey:@"siteURL"];
+    newViewController.rssName = [[outList objectAtIndex:indexPath.row] objectForKey:@"sitename"];
+    newViewController.rssURL = [[outList objectAtIndex:indexPath.row] objectForKey:@"siteURL"];
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:newViewController animated:YES];
