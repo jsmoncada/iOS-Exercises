@@ -15,6 +15,8 @@
 
 @implementation WebViewController
 @synthesize path;
+@synthesize webView;
+@synthesize hud;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,26 +30,32 @@
 {
 
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)web
+{
+    [hud hide:YES];
+    
+}
+-(void) viewDidAppear:(BOOL)animated
+{
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+        CGRect webFrame = CGRectMake(0.0, 0.0, 320.0, 460.0);
+    webView = [[UIWebView alloc] initWithFrame:webFrame];
+    webView.delegate = self;
+    self.view=webView;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    CGRect webFrame = CGRectMake(0.0, 0.0, 320.0, 460.0);
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:webFrame];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:path];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        [webView loadRequest:requestObj];
-        self.view=webView;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //[spinner stopAnimating];
-            
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            //[spinner removeFromSuperview];
-        });
-    });
     
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Loading";
+    [webView loadRequest:requestObj];
+
 }
 
 - (void)didReceiveMemoryWarning
